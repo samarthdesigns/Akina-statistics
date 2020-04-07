@@ -1,6 +1,9 @@
 let user_count = null;
 let req_count = null;
 
+let emailValidity = false;
+let emailValue = null;
+
 getLandingData()
 
 function getLandingData() {
@@ -116,16 +119,16 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-document.getElementById('email').addEventListener("input", function () {
+document.getElementById('user-email').addEventListener("input", function () {
 
-    emailValue = document.getElementById('email').value;
+    emailValue = document.getElementById('user-email').value;
 
     if (validateEmail(emailValue)) {
-        document.getElementById('email').classList.remove('text-field-false');
+        document.getElementById('user-email').classList.remove('text-field-false');
         emailValidity = true;
     }
     else {
-        document.getElementById('email').classList.add('text-field-false')
+        document.getElementById('user-email').classList.add('text-field-false')
         emailValidity = false;
     }
 
