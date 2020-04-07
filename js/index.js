@@ -133,3 +133,14 @@ document.getElementById('user-email').addEventListener("input", function () {
     }
 
 });
+
+function pageRefresher(){
+    
+    getLandingData();
+
+    setTimeout(()=>{
+        pageRefresher()
+    }, 5000);
+}
+
+pageRefresher();
