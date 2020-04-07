@@ -1,12 +1,12 @@
-let user_count = null;
-let req_count = null;
+let user_count = 'NA';
+let req_count = 'NA';
 
 let emailValidity = false;
 let emailValue = null;
 
-getLandingData()
+pageRefresher();
 
-function getLandingData() {
+function getUserNumber() {
 
     fetch('https://stats.ayushpriya.tech/user_count ', {
         method: 'GET',
@@ -16,11 +16,15 @@ function getLandingData() {
         },
     })
         .then((response) => response.json())
-        .then((result) => {
-            user_count = result;
+        .then((data) => {
+            user_count = data;
             updateUserNumber();
+            getRequestNumber();
         })
 
+}
+
+function getRequestNumber(){
     fetch('https://stats.ayushpriya.tech/req_count ', {
         method: 'GET',
         crossDomain: true,
@@ -33,7 +37,6 @@ function getLandingData() {
             req_count = result;
             updateRequestNumber();
         })
-
 }
 
 function updateUserNumber() {
@@ -135,12 +138,10 @@ document.getElementById('user-email').addEventListener("input", function () {
 });
 
 function pageRefresher(){
-    
-    getLandingData();
 
+    getUserNumber();
+    
     setTimeout(()=>{
         pageRefresher()
     }, 5000);
 }
-
-pageRefresher();
