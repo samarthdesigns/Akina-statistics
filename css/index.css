@@ -20,6 +20,10 @@ body {
   padding-top: 50px;
 }
 
+.red {
+  color: #d95071 !important;
+}
+
 h1 {
   font-size: 32px;
   text-align: center;
@@ -158,7 +162,7 @@ input {
 button {
   border: none;
   height: 44px;
-  width: 160px;
+  width: 220px;
   display: block;
   margin: auto auto;
   font-size: 18px;
@@ -179,5 +183,111 @@ button {
 
 .text-field-false {
   border: 1px solid #FF5151;
+}
+
+#reports {
+  cursor: pointer;
+}
+
+.requests-modal {
+  height: auto;
+  max-height: 80vh;
+  overflow: scroll;
+  width: 80%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 650px;
+  -webkit-box-shadow: 0 0 4px #d3d3d3;
+          box-shadow: 0 0 4px #d3d3d3;
+  background: #fafafa;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  -webkit-transform: translate(-50%, -45%);
+          transform: translate(-50%, -45%);
+  border-radius: 4px;
+  -webkit-animation: modalAni .5s ease forwards;
+          animation: modalAni .5s ease forwards;
+  opacity: 0;
+  z-index: 99;
+}
+
+#requests-modal {
+  display: none;
+}
+
+@-webkit-keyframes modalAni {
+  0% {
+    -webkit-transform: translate(-50%, -45%);
+            transform: translate(-50%, -45%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes modalAni {
+  0% {
+    -webkit-transform: translate(-50%, -45%);
+            transform: translate(-50%, -45%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+.request-card {
+  width: 80%;
+  height: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: #ffffff;
+  -webkit-box-shadow: 0 0 4px #d3d3d3;
+          box-shadow: 0 0 4px #d3d3d3;
+  display: block;
+  margin: auto auto;
+  border-radius: 4px;
+  font-family: 'Manrope-Light';
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.request-card .item {
+  font-size: 18px;
+}
+
+.request-card b {
+  font-family: 'Manrope-Bold';
+}
+
+.request-card .item-description {
+  font-size: 15px;
+}
+
+.request-card .posting-date {
+  font-size: 12px;
+  color: #989898;
+}
+
+#tint {
+  height: 100vh;
+  width: 100vw;
+  background: #fafafa;
+  opacity: 0.95;
+  z-index: 9;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
 }
 /*# sourceMappingURL=index.css.map */

@@ -1,5 +1,6 @@
 let user_count = 'NA';
 let req_count = 'NA';
+let rep_count = 'NA';
 
 let emailValidity = false;
 let emailValue = null;
@@ -35,7 +36,23 @@ function getRequestNumber(){
         .then((response) => response.json())
         .then((result) => {
             req_count = result;
+            getReportNumber();
             updateRequestNumber();
+        })
+}
+
+function getReportNumber(){
+    fetch('https://stats.ayushpriya.tech/rep_count ', {
+        method: 'GET',
+        crossDomain: true,
+        headers: {
+            "Accept": "application/json"
+        },
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            rep_count = result;
+            updateReportNumber();
         })
 }
 
@@ -45,6 +62,10 @@ function updateUserNumber() {
 
 function updateRequestNumber() {
     document.getElementById('request-number').innerHTML = req_count;
+}
+
+function updateReportNumber() {
+    document.getElementById('report-number').innerHTML = rep_count;
 }
 
 function checkEmail(data) {
@@ -69,6 +90,7 @@ function checkEmail(data) {
                 else if (result === 'Verified') {
                     document.getElementById('popup').classList.add('success');
                     document.getElementById('popup').innerHTML = "User Is Verified";
+                    getAllRequestsForUser(data);
                     setTimeout(function () {
                         document.getElementById('popup').classList.remove('success');
                     }, 3000);
@@ -136,6 +158,59 @@ document.getElementById('user-email').addEventListener("input", function () {
     }
 
 });
+
+document.getElementById('reports').addEventListener('click', ()=>{
+    getAllReports();
+})
+
+function getAllReports(){
+
+
+    fetch('https://stats.ayushpriya.tech/user/reported', {
+        method: 'GET',
+        crossDomain: true,
+        headers: {
+            "Accept": "application/json"
+        },
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result)
+        })
+
+}
+
+function closeModal(){
+    document.getElementById('requests-modal').style.display = 'none';
+    document.getElementById('tint').style.display = 'none';
+}
+
+function getAllRequestsForUser(email){
+    fetch('https://stats.ayushpriya.tech/reqs/' + email , {
+        method: 'GET',
+        crossDomain: true,
+        headers: {
+            "Accept": "application/json"
+        },
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            result = result.results;
+            document.getElementById('requests-modal').style.display = 'block';
+            document.getElementById('tint').style.display = 'block';
+            for(let i=0;i<=result.length+1;i++){
+                if(i==result.length+1){
+                    let information = document.getElementById('requests-modal').innerHTML;
+                    document.getElementById('requests-modal').innerHTML = information + '<button id="close" onClick="closeModal();">Close</button>'
+                }
+                else{
+                    let information = document.getElementById('requests-modal').innerHTML;
+                    document.getElementById('requests-modal').innerHTML = information + '<div class="request-card"><p class="item">' + result[1] + '<b>' + result[2] + '</b></p><p class="item-description">' + result[3] + '</p><p class="posting-date">' + result[4] + '</p></div>';
+                }
+            }
+        })
+}
+
 
 function pageRefresher(){
 
