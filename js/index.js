@@ -183,6 +183,7 @@ function getAllReports(){
 function closeModal(){
     document.getElementById('requests-modal').style.display = 'none';
     document.getElementById('tint').style.display = 'none';
+    document.getElementById('requests-modal').innerHTML = '';
 }
 
 function getAllRequestsForUser(email){
@@ -198,16 +199,12 @@ function getAllRequestsForUser(email){
             result = result.results;
             document.getElementById('requests-modal').style.display = 'block';
             document.getElementById('tint').style.display = 'block';
-            for(let i=0;i<=result.length+1;i++){
-                if(i==result.length+1){
-                    let information = document.getElementById('requests-modal').innerHTML;
-                    document.getElementById('requests-modal').innerHTML = information + '<button id="close" onClick="closeModal();">Close</button>'
-                }
-                else{
-                    let information = document.getElementById('requests-modal').innerHTML;
-                    document.getElementById('requests-modal').innerHTML = information + '<div class="request-card"><p class="item">' + result[1] + '<b>' + result[2] + '</b></p><p class="item-description">' + result[3] + '</p><p class="posting-date">' + result[4] + '</p></div>';
-                }
+            for(var i=0;i<result.length;i++){
+                let information = document.getElementById('requests-modal').innerHTML;
+                document.getElementById('requests-modal').innerHTML = information + '<div class="request-card"><p class="item">' + result[i][2] + ' | <b>' + result[i][3] + '</b></p><p class="item-description">' + result[i][7] + '</p><p class="posting-date">' + result[i][4] + '</p></div>';
             }
+            let information = document.getElementById('requests-modal').innerHTML;
+            document.getElementById('requests-modal').innerHTML = information + '<button id="close" onClick="closeModal();">Close</button>'
         })
 }
 
