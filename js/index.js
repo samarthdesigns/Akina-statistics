@@ -1,9 +1,8 @@
 let user_count = 'NA';
 let req_count = 'NA';
 let rep_count = 'NA';
-
-let emailValidity = false;
-let emailValue = null;
+let emailValue = document.getElementById('user-email').value;
+let emailValidity = validateEmail(emailValue);
 
 pageRefresher();
 
@@ -110,7 +109,7 @@ function checkEmail(data) {
                     }, 3000);
                 }
             })
-            .catch(() => {
+            .catch((e) => {
                 document.getElementById('popup').classList.add('error');
                 document.getElementById('popup').innerHTML = "Check Email Field";
                 setTimeout(function () {
@@ -133,9 +132,7 @@ document.getElementById('userCheckForm').addEventListener('submit', (e) => {
 
     e.preventDefault();
 
-    let user_email = document.getElementById('user-email').value;
-
-    checkEmail(user_email);
+    checkEmail(emailValue);
 
 });
 
@@ -165,6 +162,8 @@ document.getElementById('reports').addEventListener('click', ()=>{
 
 function getAllReports(){
 
+    document.getElementById('tint').style.display = 'block';
+    document.getElementById('loader').style.display = 'block';
 
     fetch('https://stats.ayushpriya.tech/user/reported', {
         method: 'GET',
@@ -175,10 +174,23 @@ function getAllReports(){
     })
         .then((response) => response.json())
         .then((result) => {
-            console.log(result)
+            result = result.results;
+            console.log(result);
+            document.getElementById('requests-modal').style.display = 'block';
+            document.getElementById('loader').style.display = 'none';
+            for(var i=0;i<result.length;i++){
+                let information = document.getElementById('requests-modal').innerHTML;
+                document.getElementById('requests-modal').innerHTML = information + '<div class="request-card"><p class="item">' + result[i].user_reported + ' </p><p class="item-description">' + result[i].report_desc + '</p><p class="posting-date"> By ' + result[i].reported_by + '</p></div>';
+            }
+            let information = document.getElementById('requests-modal').innerHTML;
+            document.getElementById('requests-modal').innerHTML = information + '<button id="close" onClick="closeModal();">Close</button>'
         })
 
 }
+
+document.getElementById('tint').addEventListener('click', ()=>{
+    closeModal();
+})
 
 function closeModal(){
     document.getElementById('requests-modal').style.display = 'none';
@@ -187,6 +199,10 @@ function closeModal(){
 }
 
 function getAllRequestsForUser(email){
+
+    document.getElementById('tint').style.display = 'block';
+    document.getElementById('loader').style.display = 'block';
+
     fetch('https://stats.ayushpriya.tech/reqs/' + email , {
         method: 'GET',
         crossDomain: true,
@@ -198,7 +214,7 @@ function getAllRequestsForUser(email){
         .then((result) => {
             result = result.results;
             document.getElementById('requests-modal').style.display = 'block';
-            document.getElementById('tint').style.display = 'block';
+            document.getElementById('loader').style.display = 'none';
             for(var i=0;i<result.length;i++){
                 let information = document.getElementById('requests-modal').innerHTML;
                 document.getElementById('requests-modal').innerHTML = information + '<div class="request-card"><p class="item">' + result[i][2] + ' | <b>' + result[i][3] + '</b></p><p class="item-description">' + result[i][7] + '</p><p class="posting-date">' + result[i][4] + '</p></div>';
