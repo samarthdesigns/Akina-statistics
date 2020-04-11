@@ -90,7 +90,6 @@ function checkEmail(data) {
                     document.getElementById('popup').classList.add('success');
                     document.getElementById('popup').innerHTML = "User Is Verified";
                     getUserDetails(data);
-                    getAllRequestsForUser(data);
                     setTimeout(function () {
                         document.getElementById('popup').classList.remove('success');
                     }, 3000);
