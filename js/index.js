@@ -200,7 +200,6 @@ function getUserDetails(email){
         .then((response) => response.json())
         .then((result) => {
             result = result.result;
-            console.log(result)
             let information = document.getElementById('requests-modal').innerHTML;
             document.getElementById('requests-modal').innerHTML = information + '<h3>' + result.name + '</h3>'  + '<h3>' + result.phone + '</h3>' + '<h3>' + result.email + '</h3>' + '<h3 style="margin-bottom:50px;"> User ID: <b>' + result.user_id + '</b></h3>';
             getAllRequestsForUser(email);
