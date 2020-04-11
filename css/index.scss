@@ -194,6 +194,18 @@ button{
     animation: modalAni .5s ease forwards;
     opacity: 0;
     z-index: 99;
+
+    h3{
+        font-family: 'Manrope-Light';
+        font-size: 18px;
+        text-align: center;
+        color: #141414;
+
+        b{
+            font-family: 'Manrope-Bold';
+        }
+
+    }
 }
 
 #requests-modal{

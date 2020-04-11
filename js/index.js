@@ -89,6 +89,7 @@ function checkEmail(data) {
                 else if (result === 'Verified') {
                     document.getElementById('popup').classList.add('success');
                     document.getElementById('popup').innerHTML = "User Is Verified";
+                    getUserDetails(data);
                     getAllRequestsForUser(data);
                     setTimeout(function () {
                         document.getElementById('popup').classList.remove('success');
@@ -186,6 +187,24 @@ function getAllReports(){
             document.getElementById('requests-modal').innerHTML = information + '<button id="close" onClick="closeModal();">Close</button>'
         })
 
+}
+
+function getUserDetails(email){
+
+    fetch('https://stats.ayushpriya.tech/user/details/' + email, {
+        method: 'GET',
+        crossDomain: true,
+        headers: {
+            "Accept": "application/json"
+        },
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            result = result.result;
+            let information = document.getElementById('requests-modal').innerHTML;
+            document.getElementById('requests-modal').innerHTML = information + '<h3>' + result.name + '</h3>'  + '<h3>' + result.phone + '</h3>' + '<h3>' + result.email + '</h3>' + '<h3 style="margin-bottom:50px;"> User ID: <b>' + result.email + '</b></h3>';
+            getAllRequestsForUser(email);
+        })
 }
 
 document.getElementById('tint').addEventListener('click', ()=>{

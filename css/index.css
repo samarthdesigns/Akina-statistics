@@ -214,6 +214,17 @@ button {
   z-index: 99;
 }
 
+.requests-modal h3 {
+  font-family: 'Manrope-Light';
+  font-size: 18px;
+  text-align: center;
+  color: #141414;
+}
+
+.requests-modal h3 b {
+  font-family: 'Manrope-Bold';
+}
+
 #requests-modal {
   display: none;
 }
